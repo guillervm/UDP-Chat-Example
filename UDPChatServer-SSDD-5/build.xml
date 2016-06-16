@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." name="UDP_Chat_Server">    
+	<property environment="env"/>
+	<property name="source.dir" location="src"/>
+   	<property name="build.dir" location="bin"/>
+	<property name="dist.dir" location="dist"/>
+	<property name="classpath" location="bin"/>
+	<property name="export.file" value="CharServer.jar"/>
+	<property name="server.port" value="6789"/>
+
+	<target name="build" description="Builds the project">
+		<delete dir="${build.dir}"/>
+		<mkdir dir="${build.dir}"/>
+		<javac srcdir="${source.dir}" destdir="${build.dir}" classpath="${classpath}" deprecation="true" fork="true" includeAntRuntime="no"/>
+    </target>
+	
+	<target name="export" depends="build" description="Export the project into a .jar file">
+		<delete dir="${dist.dir}"/>
+		<mkdir dir="${dist.dir}"/>
+		<jar destfile="${dist.dir}/${export.file}" basedir="${build.dir}" includes="**/data/*.class"/>
+    </target>
+	
+	<target name="server" depends="build" description="Runs UDP Server">
+		<java classname="es.deusto.ingenieria.ssdd.chat.main.MainProgram" classpath="${build.dir}" fork="true">
+			<arg value="${server.port}"/>
+    	</java>
+	</target>
+</project>

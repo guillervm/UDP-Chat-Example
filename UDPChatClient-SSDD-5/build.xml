@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." name="UDP_Chat_Client">    
+	<property environment="env"/>
+	<property name="source.dir" location="src"/>
+   	<property name="build.dir" location="bin"/>
+	<property name="lib.dir" location="lib"/>
+	
+    <path id="classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <pathelement location="${build.dir}"/>    	
+    </path>	
+	
+	<target name="build" description="Builds the project">
+		<delete dir="${build.dir}"/>
+		<mkdir dir="${build.dir}"/>
+		<javac srcdir="${source.dir}" destdir="${build.dir}" classpathref="classpath" fork="true" includeAntRuntime="no"/>
+    </target>
+	
+	<target name="client" depends="build" description="Runs the Client">
+		<java classname="es.deusto.ingenieria.ssdd.chat.client.main.MainProgram" classpathref="classpath" fork="true">
+        </java>
+    </target>
+</project>
